@@ -1,0 +1,1 @@
+cd\watcom\pmode 

@@ -1,0 +1,256 @@
+
+MR.BOOM V3.0 Documentation
+
+
+    . WHO iS MiSTER BOOM ???
+
+       mr.boom is a multiplayer freeware game, made for dos (but that now
+       works fine in windows 95/98). it's a bomberman-clone compatible
+       with ipx, to enable 8 players network gaming.
+
+    . VARiOUS FEATURES (THiNGS YOU SHOULD KNOW):
+
+       + 8 differents levels. (2 new levels in the version)
+       + GUS *ONLY* support for sound.
+       + multiplayer individual fights + 2 different team modes.
+         (sorry, there is no 1 player "quest" mode.)
+       + up to 8 players playing together in one game.
+       + up to 8 computers connected for one game.
+       + up to 8 players on one computer (to be used with pc twin, joyemu or
+         sneskey.. read bellow...)
+       + up to 10 different games can be played simultaneously in the same
+         network.
+       + network support is made for DOS IPX (NOT for TCP/IP)
+       + i added a "tri-bomb" bonus, that is a bit special:
+         press quickly the "drop bomb" buttom twice, to drop one normal bomb,
+         and then all your bombs in front of you.
+
+    . DEFAULT KEYBOARD:
+
+       + left player:
+
+          - action.... space bar to drop a bomb
+                       TAB for remote control
+                       LOCK to jump (with rabbits)
+          - movement.. a,q,t,y
+
+       + right player:
+
+          - action.... 0 (digit pad) for bombs
+                       . (digit pad) for remote control
+                       right return (digit pad) to jump
+          - movement.. arrows
+
+       + others:
+
+          - the Pause/Break key is now used for making a Pause/Break...
+          - use return in the menu to start a game. (at least two players
+            must have joined that game first)
+          - run "mrboom30 -S" in a *full screen* (windows') dos-prompt to
+            change the keys.
+
+    . HOW TO START A GAME ? (FOR DUMMiES)
+
+       press the space bar (player 1 default action key),press 0
+       (on my keyboard its called 0/inser, on the digit pad -on the right-
+       that is player 2 default action key) then press return.
+       return is the key to start a game, BUT at least two bombermen must
+       have joined the game. ok ?
+
+    . COMMAND LiNE OPTiONS:
+
+       These are options you use while running from dos or a windows'
+       dos-prompt (like: "mrboom30 -?")
+
+       -? (or -H) for help, will display all theses line commands:
+
+       -S  to get into the setup. (key changing/sound card selection;
+       remember that if you're running the setup in a window box, you MUST
+       put it in full screen, or you won't be able to control it correctly)
+
+       -P to use current directory as mrboom3.cfg path
+
+       -B to run the game in the twice faster mode. (run from master)
+
+       -K to make an infinite "lost connection" delay. (kli onliner mode)
+       usefull in windows if you need to do an alt return: it shouldn't do a
+       lost connection then.. run from every computer.. (experimental)
+
+       -E enable slaves to start a game. (for masters)
+
+       -2 is the same than the "twice faster mode", except that time remains
+       slow.
+
+       -3  run this option on slow 386 that would like to join the network
+       (transform your old computer into a keyboard terminal)
+
+       -T  to run the game in turbo mode (run from master only)
+
+       -D  to run the game in "no detail" mode (run from master only)
+
+       -Nx (with x between 0 [default subnetwork] to 9)
+       to use one of the following subnetworks.
+       it's only usefull when there are MORE than 8 computers connected,
+       because then you can't connect anymore to their game.
+       Subnetwork enables you to play a different game.
+       (run from every computer)
+
+       -X  will print infos on each game running on different subnetwork,
+       and ask you which one you want to join.
+
+       -L  to increase the "lost connection" statement delay. (x10)
+       (run it on EVERY computer, if you have some "lost connection" messages
+       on slaves computer)
+
+       -I  to run the game without using the network
+
+       -G  to play in team: girls VS boys (run from master only)
+
+       -C  to play in team: white VS blue VS red VS green (run from master)
+
+       -M  to play without monsters. (run from master)
+
+       -F  to record games into .mrb files
+       (in this mode there are no draw games, victories...)
+
+       -R  to load a .mrb file
+
+       -W to use IPX/SFX network in Windows 95/98
+
+    . HOW TO PLAY iN AN iPX NETWORK:
+
+       ipx was first made for dos only, but there is now windows support.
+       (explained in the next chapter)
+
+       first run the game on the FASTEST computer of your network,
+       it will become the master.
+       then you can connect others (slaves) but simply running the game.
+       slaves won't see the intro pic and will read a special-slave scrolly.
+       slaves can connect, disconnect, reconnect, reboot or do whatever they
+       want without making trouble to the currently played game but they can
+       only join a new game when the master is in the "recrutement" menu. If
+       they were playing a game before they left, they can rejoin the match.
+       (for example if you are slave you can quit to dos, run the game with
+       -S option to run setup, change your keys and rejoin the game...)
+
+       in network, only the master can:
+       + start a new game in the menu. (return key)
+       + stop a currently played game. (escape)
+       + pause the game. (pause/break key)
+       + directly skip victories, draw games and rewards parts
+         (when slaves have to wait few secs...)
+       + choose the level (press 1 to 8 in the menu)
+
+       note that you can play in network between modern computers, but you can
+       also connect to a mr.boom game, using an old 386sx25, with just dos and
+       an ipx card, and it woud become a connected keyboard, this way you
+       could add 2 new players to your games... (if you have enough friends)
+       note that the 386 won't have display on it... (use -3 option)
+
+       also better use RJ45 than BNC, most problems come from those shitty
+       cables...
+
+    . HOW TO PLAY iN A WINDOWS 95/98 IPX/SPX NETWORK:
+
+       it's now possible to play in network, under windows 95/98 !
+       you must do 2 things:
+
+       - install Microsoft's IPX/SPX protocol (network properties)
+       and configure packet kind to Ethernet 802.3  (advanced network
+       properties). 
+
+       - run the game with the -W option.
+
+       - you MUST be in full screen (always ! even the dos prompt must be in
+       full screen when you run the game)
+
+       everything else is the same that written above.
+       it works better in dos !!!
+
+    . NULL MODEM / INTERNET ???
+
+       there is NO support for null-modem (too slow because of the
+       client/server way i coded the game) nor for tcp/ip (would be nice but
+       i didn't do it...anyway i think internet wouldn't fit to this kind of
+       games because of the "lag": it can be hidden for doom/tetris clones,
+       but not for an old style arcade game where you have to see all the
+       players moving fluently on your screen...i'm wrong ?)
+
+    . JOYSTICK SUPPORT ???
+
+       i didn't coded joystick support, BUT playing playing mr.boom with
+       joysticks is still possible:
+
+       you can configure (in the setup) keys for up to 8 players, on one
+       computer: this is usefull for software like "joyemu" that is a
+       keyboard emulator for pc joystick (!) that simulate that you pushed
+       keys of the keyboard, while you actually moved your joypad/joystick.
+       this way you can use keys like F1,F2,F3.. as joystick input.
+
+       there also exist completely hardware ways to do this
+       ("pctwin" that can connect snes joypads on your keyboard)
+       and half-software/hardware ways to do this like "sneskey"
+       (with schematic adaptater circuit to plug your VCS 2600's and many
+       others kinds of joypads on your serial port...)
+
+       links/download for these software can be found on my homepage.
+
+    . ONE PLAYER SUPPORT ???
+
+       find friends !
+
+    . iF THE GAME iS TOO SLOW:
+
+       + use the -B option to run the game in the twice faster mode.
+
+       + the -T option will make the game run as fast as possible...
+       (typing 'speed' or 'slow' at any time to change that mode)
+
+       + run the game with -D to remove detail. (master only)
+
+       + still to slow ??? run with -D and -T at the same time...
+
+       + in network you can try:
+
+          - to play with 2 players on each computers (the more computers are
+            connected, the more slow the game will be...)
+          - run the master in terminal mode. (option -3)
+          - run the master in turbo mode + no detail mode + twice faster ..
+          - run the master in terminal mode + turbo mode + no detail mode ..
+
+          well try different -3,-d,-t,-b config...
+          until you find a working one !!
+
+    . SOUND/GRAViS TROUBLES:
+
+       sorry but you need a GUS (gravis ultrasound) to have sound.
+       there won't be other card support, because i hate soundcard programming
+       and because i only have a GUS, and i don't like using other people
+       libraries: use winamp and to play some aqua mp3 with it instead !
+       if you have a GUS, you MUST config your port in the setup to have sound
+
+    . FREEWARE:
+
+       You are allowed to include this game on any cd roms, or anything:
+       you want you don't have to contact me for that.
+       You may distribute this software as long as the following files are 
+       included: mrboom30.exe mrboom30.txt file_id.diz
+
+       Most questions I usually receive are already answered in this file,
+       and since version 3.0 is the last version (until i feel like bugfixing
+       some things, i probably won't) please don't send me requests/conplains:
+       it's very irritating for a "finished" project...
+       I would deeply more appreciate you to send me a cd-rom filled with your
+       favorite mp3s !
+       My email is remdy@multimania.com
+       My homepage is http://www.multimania.com/remdy
+
+    . WARRANTY:
+
+       please note that this game is given to you with no warranty. you use
+       this program at your own risk. I take no responsibility of blabla bla
+       whether used blablablablabla or not. 
+
+    . THANKS:
+
+       Kli, FZF, Grabule, Slin, Lechat, Fred Point, Dines and Marblemad

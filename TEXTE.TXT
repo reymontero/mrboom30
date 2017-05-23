@@ -1,0 +1,780 @@
+
+
+donnee98 db '   ... server found !!! x player(s) in xxxx.                                      '
+menu_    db 'menu'
+game_    db 'game'
+demo_    db 'demo'
+warning_ipx db 'Error Initialising IPX drivers. run with -I.$'
+warning_ipx2 db 'Error in IPX de-init. SYSTEM CRASHED ?$'
+warning_ipx3 db '                                      $'
+no_dyna db  13,10,'No game Network found... Creating one...',13,10,'$'
+no_dyna2 db  13,10,'Connected as slave to the other computer (no display mode:use the keyboard !).',13,10,'$'
+pas_de_mem  db 'NOT enought memory for VGA display, controls work for network games',13,10,'$'
+pbs1        db 'probleme dans allocation de descriptor..',13,10,'$'
+pbs2        db 'probleme dans dans definition de la taille du segment',13,10,'$'
+reception   db 'accusÇ de reception non renvoyÇ...',13,10,'$'
+socketipx db 'cannot open socket.',13,10,'$'
+erreur_dans_ecoute2 db 'erreur dans ecoute',13,10,'$'
+information db 'Type "speed" during the game to get maximum speed.',13,10,'$'
+pasipx db 'NO IPX DRIVERS FOUND ! NO NETWORK GAME ! NO INTERREST !',13,10,'$'
+msg1 db 'packets envoyes: $'
+msg2 db 'packets recus: $'
+msg3 db 'taille packets envoyÇs par master (hors menu): $'
+msg4 db 'KB',13,10,'$'
+
+nomdetriche db 'rmcá'
+nomdetriche2 db 'rmdá'
+ipx db 'IPX detected !!!                                              ',13,10,'$'
+loaderror db  'Error while loading ! corrupted datas or not runned from current directory.',13,10,'$'
+busy db  'CONNECTION REFUSED.',13,10,'$'
+busy2 db ' Because already 8 computers connected on that network. (run with -N option)',13,10,'$'
+version2 db ' Because you are running mr.boom version $'
+version2b db ' and master has version $'
+
+erreur3 db  13,10,'problem: packet size TOO big for network...',13,10,'$'
+ohohohohoh db  13,10,'LOST CONNECTION IN ????... (try -k ??? read the doc)',13,10,'$'
+kill    db 13,10,'killed.',13,10,'$'
+tected  db 'mr.boom in dos with ipx drivers loaded ! :) this cpu is master of the network.*'
+tectew  db 'game runned from windows 95/98 but without network support (use option -w to use ipx/sfx) *'
+tectew2  db 'error !!! no ipx/sfx drivers found. read mrboom30.txt or install microsoft ipx/sfx protocol (in network properties) and configurate packet kind to ethernet 802.3  (advanced network properties).    running the game without network support ... *'
+tected2 db 'mr.boom runned from dos but without ipx driver loaded :( too bad... no network game for you.*'
+tectewn  db 'game runned from windows 95/98 with ipx/sfx network support !!! *'
+tecte    db ' players can join the game using their action key (default: 0/inser and space) then '
+         db 'use the return key to start a game.'
+         db '    default complete keys are: '
+         db 'for left keyboard: a/q/t/y then space to drop a bomb. tab for using the bomb remote control. lock to jump (if you are riding a rabbit)   right keyboard: arrows 0/inser ./suppr and numpad return           '
+         db ' credits: remdy (code) zaac exocet marblemad (gfx)           '
+         db ' check mrboom30.txt for infos on:  team modes  subnetworks  setup for keys and sound config  (...)         (wrap time)          €'
+tecte_sl db 'computer connected to mr.boom 3.0 (slave mode) press 0/inser to join the game using right keyboard ... or'
+         db ' press space to join using left keyboard ... enter your name  and then wait master to start a new game ...  do you want complete defaults keys ???   '
+         db 'for left keyboard: a/q/t/y then space to drop a bomb. tab for using the bomb remote control. lock to jump (if you are riding a rabbit)   right keyboard: arrows 0/inser ./suppr and numpad return             '
+         db ' you know everything ... wrap wrap wrap wrap wrap '
+         db 'wrap wrap ...                                                                          €'
+message1 db ' join '
+       db '  us  '
+       db '  !!  '
+       db '              '
+       db '      '
+       db '      '
+       db '      '
+       db '              '
+       db ' push '
+       db ' fire '
+       db '  !!  '
+       db '              '
+       db '      '
+       db '      '
+       db '      '
+       db '              '
+
+message2 db '    is'
+         db 'ready '
+         db '2 kill'
+       db '              '
+         db '    is'
+         db 'ready '
+         db '2 kill'
+       db '              '
+         db 'hosted'
+         db 'by cpu'
+         db ' nb:  '
+       db '              '
+         db 'hosted'
+         db 'by cpu'
+         db ' nb:  '
+       db '              '
+
+message3 db 'name ?'
+         db '      '
+         db '      '
+         db '              '
+         db 'name ?'
+         db '      '
+         db '      '
+         db '              '
+         db 'name ?'
+         db '      '
+         db '      '
+         db '              '
+         db '      '
+         db '      '
+         db '      '
+         db '              '
+
+mess_kli db 'kli kl'
+         db ' kli k'
+         db 'i kli '
+         db '              '
+         db ' kli k'
+         db 'i kli '
+         db 'li kli'
+         db '              '
+         db 'i kli '
+         db 'li kli'
+         db 'kli kl'
+         db '              '
+         db 'li kli'
+         db 'kli kl'
+         db ' kli k'
+         db '              '
+
+mess_luc db 'luc lu'
+         db ' luc l'
+         db 'c luc '
+         db '              '
+         db ' luc l'
+         db 'c luc '
+         db 'uc luc'
+         db '              '
+         db 'c luc '
+         db 'uc luc'
+         db 'luc lu'
+         db '              '
+         db 'uc luc'
+         db 'luc lu'
+         db ' luc l'
+         db '              '
+
+mess_frd db '      '
+         db ' fred '
+         db '      '
+         db '              '
+         db '      '
+         db 'point!'
+         db '      '
+         db '              '
+         db '      '
+         db ' fred '
+         db '      '
+         db '              '
+         db '      '
+         db 'point!'
+         db '      '
+         db '              '
+
+
+mess_jag db 'jaguar'
+         db '      '
+         db '      '
+         db '              '
+         db '      '
+         db 'jaguar'
+         db '      '
+         db '              '
+         db '      '
+         db '      '
+         db 'jaguar'
+         db '              '
+         db '      '
+         db 'jaguar'
+         db '      '
+         db '              '
+
+mess_din db '      '
+         db 'dines '
+         db '      '
+         db '              '
+         db '      '
+         db 'dines!'
+         db '      '
+         db '              '
+         db '      '
+         db 'dines '
+         db '      '
+         db '              '
+         db '      '
+         db 'dines!'
+         db '      '
+         db '              '
+
+mess_jdg db 'judge '
+         db '      '
+         db 'j.f.f.'
+         db '              '
+         db 'miguel'
+         db '      '
+         db 'j.f.f.'
+         db '              '
+
+mess_rmd db '      '
+         db 'remdy.'
+         db '      '
+         db '              '
+         db '      '
+         db 'remdy '
+         db '      '
+         db '              '
+         db '      '
+         db 'remdy.'
+         db '      '
+         db '              '
+         db '      '
+         db 'remdy '
+         db '      '
+         db '              '
+
+mess_kor db 'enjoy.'
+         db 'meteor'
+         db '      '
+         db '              '
+         db 'think.'
+         db 'meteor'
+         db '      '
+         db '              '
+         db 'drink.'
+         db 'meteor'
+         db '      '
+         db '              '
+         db '      '
+         db ' kor! '
+         db '      '
+         db '              '
+
+mess_sl1 db '      '
+         db ' s    '
+         db '      '
+         db '              '
+         db '      '
+         db ' sl   '
+         db '      '
+         db '              '
+         db '      '
+         db ' sli  '
+         db '      '
+         db '              '
+         db '      '
+         db ' slin '
+         db '      '
+         db '              '
+
+
+mess_adr db 'lechat'
+         db '      '
+         db '      '
+         db '              '
+         db 'lechat'
+         db 'login '
+         db '      '
+         db '              '
+         db 'lechat'
+         db 'login '
+         db ' root '
+         db '              '
+         db 'dpx 20'
+         db 'xwbh44'
+         db 'orsay!'
+         db '              '
+
+
+mess_wil db 'willy!'
+         db 'united'
+         db 'lamers'
+         db '              '
+         db 'willy!'
+         db 'united'
+         db 'lamers'
+         db '              '
+
+
+mess_exo db 'exocet'
+         db '      '
+         db 'j.f.f.'
+         db '              '
+         db 'exocet'
+         db '      '
+         db 'j.f.f.'
+         db '              '
+
+mess_cl  db 'cl!nph'
+         db ' cle. '
+         db ' aner '
+         db '              '
+         db 'cl!nph'
+         db ' cle. '
+         db ' aner '
+         db '              '
+
+mess_ben db 'benji!'
+         db '      '
+         db 'j.f.f.'
+         db '              '
+         db 'benji!'
+         db '      '
+         db 'j.f.f.'
+         db '              '
+
+mess_aaa db 'anony.'
+         db 'mous ?'
+         db 'pffff.'
+         db '              '
+         db 'lamer!'
+         db 'lamer!'
+         db 'lamer!'
+         db '              '
+
+mess_fzf db '      '
+         db ' fzf! '
+         db '      '
+         db '              '
+         db '  le  '
+         db 'maitre'
+         db 'est...'
+         db '              '
+         db '  de  '
+         db 'retour'
+         db '  !!  '
+         db '              '
+         db '      '
+         db ' fzf! '
+         db '      '
+         db '              '
+
+
+
+mess_het db 'hetero'
+         db '  of  '
+         db 'razor!'
+         db '              '
+         db 'if you'
+         db 'are to'
+         db ' slow '
+         db '              '
+         db 'i will'
+         db 'insert'
+         db 'a bomb'
+         db '              '
+         db '  in  '
+         db ' your '
+         db ' ass! '
+         db '              '
+
+mess_big db '      '
+         db ' b... '
+         db '      '
+         db '              '
+         db '      '
+         db ' bi.. '
+         db '      '
+         db '              '
+         db '      '
+         db ' big. '
+         db '      '
+         db '              '
+         db '      '
+         db 'jokes!'
+         db '      '
+         db '              '
+
+mess_hak db 'hak ha'
+         db ' hak h'
+         db 'k hak '
+         db '              '
+         db ' hak h'
+         db 'k hak '
+         db 'ak hak'
+         db '              '
+         db 'k hak '
+         db 'ak hak'
+         db 'hak ka'
+         db '              '
+         db 'ak hak'
+         db 'hak ha'
+         db ' hak h'
+         db '              '
+
+
+
+mess_jc  db '      '
+         db '  jc  '
+         db '      '
+         db '              '
+         db '      '
+         db '  jc  '
+         db '      '
+         db '              '
+
+defo db 'aaaá'
+
+intro_txt db '    _________   _________     _________   _________   _________   _________ ',13,10
+          db ' ___\______ /___\____   /_____\____   /___\_____  /___\_____  /___\______ /___',13,10
+          db ' \_   |   |   _     |_____/\_   ____    _     |/    _     |/    _   |   |   _/',13,10
+          db '  |___|___|___|_____|  sns  |___________|___________|___________|___|___|___|',13,10
+          db '==[mr.boom 3.0]=====================================================[1997-99]=',13,10
+          db ' ',13,10,'$'
+nick_t       db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db '        '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db '        '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db '        '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db '        '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db '        '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db '        '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db '        '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db 'aaaá   '
+             db '        '
+             db 'cpuá  '
+
+love_si db 'rmdá'
+db 'kliá'
+db 'aaaá'
+db 'jcáá'
+db 'exoá'
+db 'bená'
+db 'wilá'
+db 'clÖá'
+db 'jdgá'
+db 'bigá'
+db 'korá'
+db 'fzfá'
+db 'diná'
+db 'jagá'
+db 'hetá'
+db 'haká'
+db 'sl|á'
+db 'adrá'
+db 'lucá'
+db 'frdá'
+db 'FFFF'
+
+rmd_file_name db   ' ',0
+IFF_file_name db  'mrboom30.exe',0
+winsux db  'c:\windows\system',0
+pas_ligne db 'No command line.',13,10
+info666   db 'use:  -? or -H to list all commands lines.',13,10
+          db '      -I for not using the network.',13,10
+          db '      -3 for terminal mode (for networking using a 386!)',13,10
+          db '      -Nx (x between 0 to 9) to split your network',13,10
+          db '      -X to scan all games played in network.',13,10
+          db '      -T for turbo mode (no vbl testing, for masters)',13,10
+          db '      -D for no detail mode (for masters)',13,10
+          db '      -G for using boys VS girls team mode.',13,10
+          db '      -C for using colors team mode.',13,10
+          db '      -L to increase the "lost connection" statement delay. (x10)',13,10
+          db '      -K to make an infinite "lost connection" delay.',13,10
+          db '      -E enable slaves to start a game. (for masters)',13,10
+          db '      -P to use current directory as mrboom3.cfg path.',13,10
+          db '      -B to use the twice faster mode.',13,10
+          db '      -2 same than the twice faster mode, except that time is not twice faster.',13,10
+          db '      -M to remove monsters.',13,10
+          db '      -F to record games into .mrb files.',13,10
+          db '      -R to load a .mrb file.',13,10
+          db '      -W to use IPX/SFX network in Windows 95/98.',13,10
+          db '      -S for SETUP.',13,10,'$'
+
+pathing   db '-P option given. using/writing mrboom3.cfg in current directory.',13,10,'$'
+setup_    db '-S option given. SETUP',13,10,'$'
+setup_k    db '-K option given. INFINITE "lost connection" DELAY.',13,10,'$'
+setup_e    db '-E option given. SLAVE GAME-STARTING MODE.',13,10,'$'
+setup_m    db '-M option given. NO MONSTER MODE.',13,10,'$'
+setup_w    db '-W option given. NETWORK SUPPORT IN WINDOWS 95/98.',13,10,'$'
+setup_d    db '-D option given. NO DETAIL MODE.',13,10,'$'
+setup_i    db '-I option given. NO IPX NETWORK USED.',13,10,'$'
+setup_3    db '-3 option given. TERMINAL MODE: NO DISPLAY.',13,10,'$'
+setup_T    db '-T option given. TURBO MODE.',13,10,'$'
+setup_F    db '-F option given. RECORD MODE.',13,10,'$'
+setup_B    db '-B option given. TWICE FASTER MODE (normal version)',13,10,'$'
+setup_2    db '-2 option given. TWICE FASTER MODE (slow time version)',13,10,'$'
+setup_N    db '-N option given. using subnetwork number $'
+setup_X    db '-X option given. scanning networks for games.',13,10,'$'
+setup_c    db '-C option given. using colors team mode.',13,10,'$'
+setup_s    db '-G option given. using boys VS girls team mode.',13,10,'$'
+setup_L    db '-L option given. increasing "lost connection" statement delay.',13,10,'$'
+setup_%    db '-% option given. giving network stats at the end.',13,10,'$'
+setup_N_error   db 'ERROR in -N option. run: "mrboom30 -N0" for subnetwork 0.',13,10,'$'
+test1   db 'oh: PROBLEM IN THE NETWORK.',13,10,'$'
+test2   db ' possible reasons:',13,10
+        db '  -a "bouchon" (=plug?) or a cable (!!) is missing.',13,10
+        db '  -if a computer just connected maybe his card is bad configured.',13,10
+        db '  -problem with the a terminal mode master ? or -t or -d ?',13,10
+        db '  -a computer tried to re-connect while the master was still',13,10
+        db '  looking for him. (maybe because of the -L option...)',13,10
+        db '  -is your hub powered ???',13,10
+        db '  -someone tried to connect from windows withouth beeing in full screen',13,10
+        db '  -i don''t know... if you do: email me..',13,10
+        db ' ',13,10
+        db 'what happenned ??? ',13,10
+        db 'this happens when the master see the "connect-me" packets from a new runned',13,10
+        db 'mr.boom game, welcome him, but then don''t received thanks from this new slave....'
+        db 'then it gets upset. REBOOT NOW !!!',13,10,'$'
+
+setup1 db '…ÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕª …ÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕª …ÕÕÕÕÕÕÕÕÕÕÕÕÕª',13,10
+       db '∫  x  Sound Card.  x  ∫ ∫ Redefine keys for player ?     ∫ ∫ Sound ???   ∫',13,10
+       db '∫  x player 1 keys x  ∫ ∫                                ∫ ∫             ∫',13,10
+       db '∫  x player 2 keys x  ∫ ∫  LEFT ...........              ∫ ∫ GUS at 210h ∫',13,10
+       db '∫  x player 3 ???  x  ∫ ∫  RIGHT ..........              ∫ ∫ GUS at 220h ∫',13,10
+       db '∫  x player 3 keys x  ∫ ∫  UP .............              ∫ ∫ GUS at 230h ∫',13,10
+       db '∫  x player 4 ???  x  ∫ ∫  DOWN ...........              ∫ ∫ GUS at 240h ∫',13,10
+       db '∫  x player 4 keys x  ∫ ∫  DROP A BOMB.....              ∫ ∫ GUS at 250h ∫',13,10
+       db '∫  x player 5 ???  x  ∫ ∫  REMOTE CONTROL..              ∫ ∫ GUS at 260h ∫',13,10
+       db '∫  x player 5 keys x  ∫ ∫  JUMP (RABBITS)..              ∫ ∫ GUS at 270h ∫',13,10
+       db '∫  x player 6 ???  x  ∫ ∫                                ∫ ∫ GUS at 280h ∫',13,10
+       db '∫  x player 6 keys x  ∫ »ÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕº ∫ NO SOUND !! ∫',13,10
+       db '∫  x player 7 ???  x  ∫ …ÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕª »ÕÕÕÕÕÕÕÕÕÕÕÕÕº',13,10
+       db '∫  x player 7 keys x  ∫ ∫ in this setup you don''t choose ∫ …ÕÕÕÕÕÕÕÕÕÕÕÕÕª',13,10
+       db '∫  x player 8 ???  x  ∫ ∫ keys for the whole network but ∫ ∫  AND DON''T  ∫',13,10
+       db '∫  x player 8 keys x  ∫ ∫ only for your computer !!!     ∫ ∫  PLAY AT 4  ∫',13,10
+       db '∫  x return to DOS x  ∫ ∫ player 1&2 are for normal use, ∫ ∫   ON ONE    ∫',13,10
+       db '∫  x save and play x  ∫ ∫ 3,4,5,6,7 & 8 are for PC TWiN. ∫ ∫  KEYBOARD ! ∫',13,10
+       db '»ÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕº »ÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕº »ÕÕÕÕÕÕÕÕÕÕÕÕÕº',13,10,'$'
+
+touches_prises db 'not defined     '  ;0
+               db 'N/A (4 exit)    '  ;1
+               db '1 (left)        '  ;2
+               db '2 (left)        '  ;3
+               db '3 (left)        '  ;4
+               db '4 (left)        '  ;5
+               db '5 (left)        '  ;6
+               db '6 (left)        '  ;7
+               db '7 (left)        '  ;8
+               db '8 (left)        '  ;9
+               db '9 (left)        '  ;10
+               db '0 (left)        '  ;11
+               db ')               '  ;12
+               db '=               '  ;13
+               db '<-- DELETE      '  ;14
+               db 'TABULATION      '  ;15
+               db 'A               '  ;16
+               db 'Z               '
+               db 'E               '
+               db 'R               '
+               db 'T               '
+               db 'Y               '
+               db 'U               '
+               db 'I               '
+               db 'O               '
+               db 'P               '
+               db '^               '
+               db '$               '  ;27
+               db 'N/A (4 menu!)   '
+               db 'CTRL (left)     '
+               db 'Q               '  ;30
+               db 'S               '
+                                       ;-32
+               db 'D               '
+               db 'F               '
+               db 'G               '
+               db 'H               '
+               db 'J               '
+               db 'K               '
+               db 'L               '
+               db 'M               '
+               db 'ó               '  ;40
+               db 'little 2        '
+               db 'SHIFT (left)    '
+               db '*               '
+               db 'W               ' ;44
+               db 'X               '
+               db 'C               '
+               db 'V               '
+               db 'B               '
+               db 'N               '
+               db ',               '
+               db ';               '
+               db ':               '
+               db '!               ' ;53
+               db 'SHIFT (right)   '
+               db '* (right)       '
+               db 'ALT (left)      '
+               db 'SPACE BAR       ' ;57
+               db 'LOCK            ' ;58
+               db 'F1              '
+               db 'F2              '
+               db 'F3              '
+               db 'F4              '
+               db 'F5              '
+               ;64
+               db 'F6              '
+               db 'F7              '
+               db 'F8              '
+               db 'F9              '
+               db 'F10             '
+               db 'VERR NUM        '
+               db 'SCROLL LOCK     '  ;70
+               db '7 (right)       '
+               db '8 (right)       '  ;72
+               db '9 (right)       '
+               db '- (right)       '
+               db '4 (right)       '
+               db '5 (right)       '
+               db '6 (right)       '  ;77
+               db '+ (right)       '  ;
+               db '1 (right)       '
+               db '2 (right)       '  ;80
+               db '3 (right)       '
+               db '0/INSER         '  ;82
+               db '"."/SUPPR       '  ;83
+               db 'PRINT SCREEN    '  ;84
+               db 'N/A             '
+               db '<               '  ;86
+               db 'F11             '  ;87
+               db 'F12             '  ;
+               db 'N/A             '  ;
+               db 'N/A             '  ;90
+               db 'F13 (LWin)      '  ;91
+               db 'F14 (RWin)      '
+               db 'F15 (Menu)      '
+               db 'N/A             '
+               db 'N/A             '
+               ;-96
+               db 'N/A (4 pause)   '
+               db 'N/A (4 pause)   '  ;97
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A             '
+               db 'N/A (PAUSE!!)   '  ;110
+               db 'N/A             '
+               db 'UP              '  ;112
+               db 'DOWN            '  ;113
+               db 'LEFT            '  ;114
+               db 'RIGHT           '  ;115
+               db '/ (NUMPAD)      '  ;116
+               db 'FIN             '
+               db 'SUPPR           '  ;118
+               db '\|/             '  ;119
+               db '/|\             '  ;120
+               db 'HOME            '  ;121
+               db 'INSER           '  ;122
+               db 'CTRL (right)    '  ;123 special rajoutee.
+               db 'ALT (right)     '  ;124
+               db 'RETURN (bis)    '
+               db 'N/A             '
+               db 'N/A             '
+                                       ;128
+nom_terrain  db 'fete--XX'
+             db 'neige-XX'
+             db 'metal-XX'
+             db 'foret-XX'
+             db 'nuagesXX'
+             db 'crayonXX'
+             db 'lune--XX'
+             db 'soccerXX'
+
+cfgfile db 'c:\mrboom3.cfg'
+cfgfile2 db ' '
+reccord   db 'record00.mrb',0
+reccord3  db 'Loading: '
+reccord2  db 'record00.mrb',0
+suite     db ' ',13,10,'$'
+suite2    db 'ERROR WHILE LOADING.',13,10,'$'
+suite3    db 'Option error, you must use: -R ????????.MRB (yes...8 letter names!!!)',13,10,'$'
+
+cfgerror db 'Config file not found or data error inside: run with -s option for setup !!!',13,10,'$'
+errorcfg db 'ERROR WRITING CONFIG FILE.',13,10,'$'
+message_mem_rp db 'ERROR: NO .MRB LOADING/RECORDING IN TERMINAL MODE.',13,10,'$'
+okcfg db 'using c:\mrboom3.cfg for settings.',13,10,'$'
+okcfg3 db 'using .\mrboom3.cfg for settings.',13,10,'$'
+win db 'Game runned from Windows 95: NO IPX NETWORK SUPPORT.',13,10,'$'
+nowin db 'game runned from DOS. what a thrill.',13,10,'$'
+terminalor db '386 Terminal mode: the network game+keyboard is working, but NO VGA display.',13,10
+           db 'BETTER LOOK AT ANOTHER SCREEN (ppl complained)',13,10,'$'
+NULOSPRODUCTION db 'NO IPX + NO MEMORY (OR TERMINAL MODE ASKED) = NO MR.BOOM.',13,10,'$'
+stat1 db 'master:',13,10,'$'
+stat2 db 'moi:',13,10,'$'
+stat3 db 'table:',13,10,'$'
+gameover db 'Master left the menu: GAME OVER !!!',13,10,'$'
+no_server_ db '#  ... no server available ...',13,10,'$'
+select_server_ db 'what server do you want ? (press 0 to 9):$'
+cnx1     db 'cnx [                         ]$'
+transformateur_98 db '0123456789!. '
+cnx2     db 'cnx [$'
+information5 db ' ',13,10
+db '.HOW TO START A GAME ?',13,10
+db ' ',13,10
+db 'press the space bar (player 1 default action key),press 0  ',13,10
+db '(on my keyboard its called 0/inser, on the digit pad -on the right-',13,10
+db 'that is player 2 default action key) then press return.',13,10
+db 'return is the key to start a game, BUT at least two bombermen',13,10
+db 'must have joined the game. ok ?',13,10
+db ' ',13,10
+db '.DEFAULT KEYBOARD:',13,10
+db ' ',13,10
+db '       + left player:',13,10
+db '                     ',13,10
+db '          - action.... space bar to drop a bomb',13,10
+db '                       TAB for remote control  ',13,10
+db '                       LOCK to jump (with rabbits)',13,10
+db '          - movement.. a,q,t,y',13,10
+db ' ',13,10
+db '       + right player:',13,10
+db '                      ',13,10
+db '          - action.... 0 (digit pad) for bombs',13,10
+db '                       . (digit pad) for remote control',13,10
+db '                       right return (digit pad) to jump',13,10
+db '          - movement.. arrows',13,10,'$'
+
+wsetup db ' €€€€€€‹ €€   €€ ‹€€€€€‹ €€   €€       ‹€€€€€‹ €€     €€€€€€€€        €€   €€',13,10,'$'
+wsetup2 db ' €€‹‹‹€€ €€   €€ €€‹‹‹‹  €€‹‹‹€€       €€‹‹‹€€ €€        €€         €€     €€',13,10,'$'
+wsetup3 db ' €€ﬂﬂﬂﬂ  €€   €€  ﬂﬂﬂﬂ€€ €€ﬂﬂﬂ€€       €€ﬂﬂﬂ€€ €€        €€       €€€€€€€€€€€',13,10,'$'
+wsetup4 db ' €€      ﬂ€€€€€ﬂ ﬂ€€€€€ﬂ €€   €€       €€   €€ €€€€€€€   €€         €€       ',13,10,'$'
+wsetup5 db '        hey you !!! put this window in full screen !                  €€     ',13,10,'$'
+; ;indique la fin pour le fichier de cryptage

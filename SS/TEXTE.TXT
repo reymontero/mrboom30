@@ -1,0 +1,13 @@
+sbmess2 DB 'SB found by hardware autodetect.(at port:$'
+sBmess3 DB 'SB found by environment checking.($'
+gusmess2 DB 'using GUS port given in mrboom.cfg !! (IT CAN CRASH IF WRONG)$'
+gusmess3 DB 'GUS found by environment checking. ($'
+gusmess4 DB 'GUS found thanks to your config file ($'
+no_gus db 'No GUS soundcard found in config: Silence is the best alternative.',13,10,'$'
+no_gus2 db 'CANNOT FIND A GUS AT THE PORT YOU GAVE IN THE SETUP.',13,10,'$'
+joystick_1 db 'ONE Joystick detected !!!',13,10,'$'
+joystick_2 db 'TWO Joystick detected !!!',13,10,'$'
+no_joystick db 'Joystick NOT detected...',13,10,'$'
+pbs_message db 'PROBLEM with PMode in detect',13,10,'$'
+loading db 'Loading file: $'
+; ;indique la fin pour le fichier de cryptage
